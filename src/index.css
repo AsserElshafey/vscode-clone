@@ -1,5 +1,1 @@
 @import "tailwindcss";
-
-* {
-  @apply box-border bg-black text-gray-100;
-}

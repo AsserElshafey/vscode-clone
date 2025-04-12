@@ -4,7 +4,7 @@ import RenderFileIcon from "./RenderFileIcon";
 import BottomArrowIcon from "./SVG/BottomArrowIcon";
 import RightArrowIcon from "./SVG/RightArrowIcon";
 import { useState } from "react";
-import { setOpenedFiles } from "../app/features/fileTreeSlice";
+import { setOpenedFiles, setClickedFile } from "../app/features/fileTreeSlice";
 import { RootState } from "../app/store";
 import { doesFileExist } from "../utils/functions";
 
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const RecursiveComponent = ({ fileTree }: IProps) => {
-  const { id, name, isFolder, Children } = fileTree;
+  const { id, name, isFolder, Children, content } = fileTree;
   const dispatch = useDispatch();
   const { openedFiles } = useSelector((state: RootState) => state.tree);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,6 +25,13 @@ const RecursiveComponent = ({ fileTree }: IProps) => {
 
   const onFileClicked = () => {
     const exist = doesFileExist(openedFiles, id);
+    dispatch(
+      setClickedFile({
+        fileName: name,
+        fileContent: content,
+        activeTabId: id,
+      })
+    );
     if (exist) return;
     dispatch(setOpenedFiles([...openedFiles, fileTree]));
   };

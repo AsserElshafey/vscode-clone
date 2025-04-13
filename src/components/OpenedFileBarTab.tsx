@@ -1,4 +1,8 @@
-import { setClickedFile, setOpenedFiles } from "../app/features/fileTreeSlice";
+import {
+  setClickedFile,
+  setOpenedFiles,
+  setTabIdToRemove,
+} from "../app/features/fileTreeSlice";
 import { IFile } from "../interfaces";
 import RenderFileIcon from "./RenderFileIcon";
 import CloseIcon from "./SVG/CloseIcon";
@@ -53,9 +57,15 @@ const OpenedFileBarTab = ({ file }: IProps) => {
   return (
     <div
       className={`flex items-center cursor-pointer p-2 border-b-2 ${
-        activeTabId === file.id ? "border-[#fff]" : "border-transparent"
+        activeTabId === file.id
+          ? "border-[#fff] bg-gray-900"
+          : "border-transparent"
       }`}
       onClick={onClick}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        dispatch(setTabIdToRemove(file.id));
+      }}
     >
       <RenderFileIcon fileName={file.name} />
       <span className="mx-2">{file.name}</span>

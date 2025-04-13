@@ -56,9 +56,9 @@ const OpenedFileBarTab = ({ file }: IProps) => {
 
   return (
     <div
-      className={`flex items-center cursor-pointer p-2 border-b-2 ${
+      className={`flex items-center cursor-pointer p-2 border-b-2 hover:border-[#2c2c2c] ${
         activeTabId === file.id
-          ? "border-[#fff] bg-gray-900"
+          ? "border-[#fff] bg-gray-900 hover:border-[#fff]"
           : "border-transparent"
       }`}
       onClick={onClick}
